@@ -69,6 +69,11 @@ async function sendEvent(leadData, qualificationResult) {
     ],
   };
 
+  // Inclui test_event_code se definido — necessário para aparecer no "Eventos de Teste" do Meta
+  if (process.env.META_TEST_EVENT_CODE) {
+    payload.test_event_code = process.env.META_TEST_EVENT_CODE;
+  }
+
   const url = `https://graph.facebook.com/${META_API_VERSION}/${META_PIXEL_ID}/events`;
 
   const response = await axios.post(url, payload, {
