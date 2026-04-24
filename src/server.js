@@ -1,5 +1,14 @@
 require('dotenv').config();
 
+// Remove tabs/spaces invisíveis que Railway pode inserir nos nomes das variáveis
+Object.keys(process.env).forEach(key => {
+  const clean = key.trim();
+  if (clean !== key) {
+    if (!process.env[clean]) process.env[clean] = process.env[key];
+    delete process.env[key];
+  }
+});
+
 const express = require('express');
 const webhookRouter = require('./routes/webhook');
 
